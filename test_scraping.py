@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import json
 
 def dolarArg():
     # URL de la página web
@@ -32,8 +33,9 @@ def dolarArg():
             dolar_info['Dolar Blue']['Venta'] = sell_elements[1].text.strip()
             dolar_info['Dolar MEP']['Venta'] = sell_elements[5].text.strip()
 
-        # Devolver el diccionario con la información
-        return dolar_info
+        # Convertir el diccionario en una cadena JSON y devolverla
+        json_data = json.dumps(dolar_info, indent=4)
+        return json_data
 
     except requests.exceptions.RequestException as e:
         print(f"Error al obtener la información: {e}")
@@ -41,6 +43,6 @@ def dolarArg():
 
 # Ejemplo de uso de la función
 if __name__ == "__main__":
-    info_dolar = dolarArg()
-    if info_dolar:
-        print(info_dolar)
+    json_info = dolarArg()
+    if json_info:
+        print(json_info)
